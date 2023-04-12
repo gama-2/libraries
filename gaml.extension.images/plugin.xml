@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="gama.display">
+      <implementation
+            class="gaml.extension.images.ImageDisplaySurface"
+            keyword="image">
+      </implementation>
+   </extension>
+   <extension
+         point="gama.save">
+      <implementation
+            class="gaml.extension.images.ImageSaver">
+      </implementation>
+   </extension>
+   <extension
+         point="gaml.extension">
+   </extension>
+   <extension
+         point="gama.draw">
+      <implementation
+            class="gaml.extension.images.ImageDrawer">
+      </implementation>
+   </extension>
+   <extension
+         point="gama.constants">
+      <implementation
+            class="gaml.extension.images.ImageConstantSupplier">
+      </implementation>
+   </extension>
+
+</plugin> 
