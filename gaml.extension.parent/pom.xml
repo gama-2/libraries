@@ -140,6 +140,7 @@
 <module>../gaml.extension.images</module>
 <module>../gaml.extension.sound</module>
 <module>../gaml.extension.stats</module>
+<module>../gaml.feature.extension</module>
 	</modules>
 
 	<dependencies>

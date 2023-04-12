@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="gaml.feature.extension"
+      label="Standard Extension to the Core of GAMA"
+      version="2.0.0.qualifier"
+      provider-name="UMMISCO, ESPACE-DEV, IRIT &amp; MIAT"
+      plugin="gaml.extension.stats">
+
+   <description url="http://gama-platform.org">
+      Direct extension to the core of GAMA
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <url>
+      <update label="Gama 2.0.x Update Site" url="https://updates.gama-platform.org"/>
+   </url>
+
+   <requires>
+      <import feature="gama.core.feature.dependencies" version="2.0.0.qualifier" match="greaterOrEqual"/>
+      <import feature="gama.feature.core" version="2.0.0.qualifier" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.osgi"/>
+   </requires>
+
+   <plugin
+         id="gaml.extension.database"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gaml.extension.fipa"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gaml.extension.traffic"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gaml.extension.simplebdi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gaml.extension.maths"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gaml.extension.network"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gaml.extension.physics"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gaml.extension.pedestrian"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="gaml.extension.images"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+<!--
+   Not previously added
+
+   <plugin
+         id="gaml.extension.sound"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gaml.extension.stats"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+      -->
+
+</feature>
