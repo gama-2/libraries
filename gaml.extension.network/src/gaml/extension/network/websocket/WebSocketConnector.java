@@ -8,46 +8,44 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gaml.extension.network.tcp;
+package gaml.extension.network.websocket;
 
 import java.io.IOException;
-import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import gama.core.extensions.messaging.GamaMessage;
 import gama.core.metamodel.agent.IAgent;
 import gama.core.runtime.IScope;
 import gaml.extension.network.common.CommandMessage;
+import gaml.extension.network.common.CommandMessage.CommandType;
 import gaml.extension.network.common.Connector;
 import gaml.extension.network.common.GamaNetworkException;
-import gaml.extension.network.common.IConnector;
 import gaml.extension.network.common.MessageFactory;
-import gaml.extension.network.common.CommandMessage.CommandType;
 import gaml.extension.network.common.MessageFactory.MessageType;
-import gaml.extension.network.common.socket.AbstractProtocol;
 import gaml.extension.network.common.socket.SocketService;
+import gaml.extension.network.tcp.ClientService;
+import gaml.extension.network.tcp.ServerService;
 
 /**
  * The Class TCPConnection.
  */
-public class TCPConnector extends Connector {
-
-	/** The tcp server. */
-	public static String _TCP_SERVER = "__tcp_server";
-
-	/** The tcp socket. */
-	public static String _TCP_SOCKET = "__tcp_socket";
-
-	/** The tcp client. */
-	public static String _TCP_CLIENT = "__tcp_client";
-
-	/** The tcp so timeout. */
-	public static Integer _TCP_SO_TIMEOUT = 100;
+public class WebSocketConnector extends Connector {
+	
+	/** The websocket server. */
+	public static String _WEBSOCKET_SERVER = "__websocket_server";
+	
+	/** The websocket socket. */
+	public static String _WEBSOCKET_SOCKET = "__websocket_socket";
+	
+	/** The websocket client. */
+	public static String _WEBSOCKET_CLIENT = "__websocket_client";
+	
+	/** The websocket so timeout. */
+	public static Integer _WEBSOCKET_SO_TIMEOUT = 100;
 
 	/** The default host. */
 	public static String DEFAULT_HOST = "localhost";
-
+	
 	/** The default port. */
 	public static String DEFAULT_PORT = "1988";
 
@@ -63,10 +61,10 @@ public class TCPConnector extends Connector {
 	/**
 	 * Instantiates a new TCP connection.
 	 *
-	 * @param scope    the scope
+	 * @param scope the scope
 	 * @param isServer the is server
 	 */
-	public TCPConnector(final IScope scope, final boolean isServer, final boolean isRaw) {
+	public WebSocketConnector(final IScope scope, final boolean isServer, final boolean isRaw) {
 		this.isServer = isServer;
 		this.setRaw(isRaw);
 		this.remoteBoxName = new ArrayList<>();
@@ -75,7 +73,7 @@ public class TCPConnector extends Connector {
 	/**
 	 * Extract and apply command.
 	 *
-	 * @param sender  the sender
+	 * @param sender the sender
 	 * @param message the message
 	 */
 	protected void extractAndApplyCommand(final String sender, final String message) {
@@ -99,9 +97,9 @@ public class TCPConnector extends Connector {
 		final String server = this.getConfigurationParameter(SERVER_URL);
 		final int port = Integer.valueOf(this.getConfigurationParameter(SERVER_PORT)).intValue();
 		if (this.isServer) {
-			socket = new ServerService(agent, port, this);
+			socket = new WebSocketServerService(agent, port, this);
 		} else {
-			socket = new ClientService(server, port, this);
+			socket = new WebSocketClientService(server, port, this);
 		}
 		try {
 			socket.startService();
@@ -121,20 +119,20 @@ public class TCPConnector extends Connector {
 		if (!this.localMemberNames.containsKey(boxName)) {
 			this.remoteBoxName.add(boxName);
 		}
-		if (!this.isRaw()) {
+		if (!isRaw()) {
 			final CommandMessage cmd = MessageFactory.buildCommandMessage(socket.getLocalAddress(),
 					socket.getRemoteAddress(), CommandType.NEW_GROUP, boxName);
-			this.sendMessage(agt, socket.getRemoteAddress(), MessageFactory.packMessage(cmd));
+			this.sendMessage(agt, socket.getRemoteAddress(), MessageFactory.packMessage(cmd));			
 		}
 	}
 
 	@Override
 	protected void unsubscribeGroup(final IAgent agt, final String boxName) throws GamaNetworkException {
 		this.remoteBoxName.remove(boxName);
-		if (!this.isRaw()) {
+		if (!isRaw()) {
 			final CommandMessage cmd = MessageFactory.buildCommandMessage(socket.getLocalAddress(),
 					socket.getRemoteAddress(), CommandType.REMOVE_GROUP, boxName);
-			this.sendMessage(agt, socket.getRemoteAddress(), MessageFactory.packMessage(cmd));
+			this.sendMessage(agt, socket.getRemoteAddress(), MessageFactory.packMessage(cmd));			
 		}
 	}
 
@@ -144,13 +142,13 @@ public class TCPConnector extends Connector {
 		socket = null;
 		this.isConnected = false;
 	}
-
+  
 	@Override
 	protected void sendMessage(final IAgent sender, final String receiver, final String content)
 			throws GamaNetworkException {
 		try {
 			if (socket != null) {
-				socket.sendMessage(content,receiver);
+				socket.sendMessage(content);
 			}
 		} catch (final IOException e) {
 			
@@ -159,7 +157,7 @@ public class TCPConnector extends Connector {
 	}
 
 	@Override
-	public SocketService getSocketService() {
+	public SocketService getSocketService() { 
 		return socket;
 	}
 
