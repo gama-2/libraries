@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Simple bdi architecture
+Bundle-SymbolicName: gaml.extension.simplebdi;singleton:=true
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core,
+ gama.core.dependencies,
+ gama.core.serialize
+Export-Package: gaml.extension.simplebdi
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: gaml.extension.simplebdi
