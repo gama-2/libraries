@@ -86,9 +86,6 @@
          version="0.0.0"
          unpack="false"/>
 
-<!--
-   Not previously added
-
    <plugin
          id="gaml.extension.sound"
          download-size="0"
@@ -102,7 +99,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-      -->
 
 </feature>
